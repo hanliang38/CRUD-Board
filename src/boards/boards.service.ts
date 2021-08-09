@@ -25,7 +25,7 @@ export class BoardsService {
         return this.boardRepository.createBoard(createBoardDto);
     }
 
-    
+
     async getBoardById(id: number): Promise<Board> {
         const found = await this.boardRepository.findOne(id);
 
@@ -37,19 +37,16 @@ export class BoardsService {
     }
 
 
-    // getBoardById(id: string): Board {
-    //     const found = this.boards.find((board) => board.id === id);
+    async deleteBoard(id: number): Promise<void> {
+        const result = await this.boardRepository.delete(id);
 
-    //     if (!found) {
-    //         throw new NotFoundException();
-    //     }
-    //     return found
-    // }
+        //error message
+        if (result.affected === 0) {
+            throw new NotFoundException(`Can't find Board with id ${id}`)
+        }
 
-    // deleteBoard(id: string): void {
-    //     const found = this.getBoardById(id);
-    //     this.boards = this.boards.filter((board) => board.id !== found.id);
-    // }
+        // console.log('result', result)
+    }
 
     // updateBoardStatus(id: string, status: BoardStatus): Board {
     //     const board = this.getBoardById(id);
