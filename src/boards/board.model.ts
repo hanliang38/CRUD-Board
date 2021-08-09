@@ -3,7 +3,7 @@ import internal from 'stream';
 export interface Board {
     id: string;
     title: string;
-    description: string;
+    content: string;
     // like: number;
     status: BoardStatus;
 }
