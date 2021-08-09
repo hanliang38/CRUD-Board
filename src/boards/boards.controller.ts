@@ -9,10 +9,10 @@ import { BoardStatusValidationPipe } from './pipes/board-status-validation.pipe'
 export class BoardsController {
     constructor(private boardsService: BoardsService) { }
         
-    // @Get()
-    // getAllBoard(): Board[] {
-    //     return this.boardsService.getAllBoards();
-    // }
+    @Get()
+    getAllBoard(): Promise<Board[]> {
+        return this.boardsService.getAllBoards();
+    }
 
     @Post()
     @UsePipes(ValidationPipe)
@@ -22,19 +22,10 @@ export class BoardsController {
         return this.boardsService.createBoard(CreateBoardDto);
     }
 
-    // @Post()
-    // @UsePipes(ValidationPipe)
-    // createBoard(
-    //     @Body() CreateBoardDto: CreateBoardDto 
-    // ): Board {
-    //     return this.boardsService.createBoard(CreateBoardDto);
-    // }
-
     @Get('/:id')
     getBoardById(@Param('id') id: number): Promise<Board> {
         return this.boardsService.getBoardById(id);
     }
-
 
     @Delete('/:id')
     deleteBoard(@Param('id', ParseIntPipe) id: number): Promise<void> {
