@@ -4,7 +4,7 @@ export interface Board {
     id: string;
     title: string;
     description: string;
-    like: number;
+    // like: number;
     status: BoardStatus;
 }
 
