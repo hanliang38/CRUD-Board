@@ -5,16 +5,16 @@ import { BoardsService } from './boards.service';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { BoardStatusValidationPipe } from './pipes/board-status-validation.pipe';
 
-@Controller('boards')
+@Controller('/api/boards')
 export class BoardsController {
     constructor(private boardsService: BoardsService) { }
         
-    @Get()
+    @Get() //게시물 리스트 조회
     getAllBoard(): Promise<Board[]> {
         return this.boardsService.getAllBoards();
     }
 
-    @Post()
+    @Post() // 게시물 생성
     @UsePipes(ValidationPipe)
     createBoard(
         @Body() CreateBoardDto: CreateBoardDto 
@@ -22,21 +22,24 @@ export class BoardsController {
         return this.boardsService.createBoard(CreateBoardDto);
     }
 
-    @Get('/:id')
+    @Get('/:id') // 게시물 상세 조회
     getBoardById(@Param('id') id: number): Promise<Board> {
         return this.boardsService.getBoardById(id);
     }
 
-    @Delete('/:id')
+    @Delete('/:id') //게시물 삭제
     deleteBoard(@Param('id', ParseIntPipe) id: number): Promise<void> {
         return this.boardsService.deleteBoard(id);
     }
 
-    @Patch('/:id/status')
+    @Patch('/:id/status') // 게시물 편집
     updateBoardStatus(
         @Param('id', ParseIntPipe) id: number,
         @Body('status', BoardStatusValidationPipe) status: BoardStatus
     ): Promise<Board> { 
         return this.boardsService.updateBoardStatus(id, status)
     }
+
+    // @Post('/:id/like') // 게시물 좋아요
+    
 }
