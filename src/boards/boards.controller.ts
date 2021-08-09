@@ -5,7 +5,7 @@ import { BoardsService } from './boards.service';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { BoardStatusValidationPipe } from './pipes/board-status-validation.pipe';
 
-@Controller('boards')
+@Controller('/api/boards')
 export class BoardsController {
     constructor(private boardsService: BoardsService) { }
         
