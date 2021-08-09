@@ -1,4 +1,4 @@
-export class CreateBoardDTO {
+export class CreateBoardDto {
     title: string;
     description: string;
 }
