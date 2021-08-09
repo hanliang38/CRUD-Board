@@ -1,5 +1,5 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { Board } from './board.model';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Board, BoardStatus } from './board.model';
 import { BoardsService } from './boards.service';
 import { CreateBoardDto } from './dto/create-board.dto';
 
@@ -13,6 +13,7 @@ export class BoardsController {
     }
 
     @Post()
+    @UsePipes(ValidationPipe)
     createBoard(
         @Body() CreateBoardDto: CreateBoardDto 
     ): Board {
@@ -22,5 +23,18 @@ export class BoardsController {
     @Get('/:id') // id로 특정 게시물 가져오기
     getBoardById(@Param('id') id: string): Board {
         return this.boardsService.getBoardById(id)
+    }
+
+    @Delete('/:id')
+    deleteBoard(@Param('id') id: string): void {
+        this.boardsService.deleteBoard(id);
+    }
+
+    @Patch('/:id/status')
+    updateBoardStatus(
+        @Param('id') id: string,
+        @Body('status') status: BoardStatus
+    ) {
+        return this.boardsService.updateBoardStatus(id, status)
     }
 }
