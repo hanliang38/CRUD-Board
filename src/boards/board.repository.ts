@@ -12,10 +12,12 @@ export class BoardRepository extends Repository<Board> {
         const board = this.create({
             title,
             content,
-            status: BoardStatus.PUBLIC
+            status: BoardStatus.PUBLIC,
+            
         })
 
         await this.save(board);
         return board;
     }
+    
 }
