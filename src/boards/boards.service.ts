@@ -19,20 +19,13 @@ export class BoardsService {
     //     return this.boards;
     // }
 
-    // createBoard(createBoardDto: CreateBoardDto) {
-    //     const { title, content } = createBoardDto;
+    createBoard(createBoardDto: CreateBoardDto): Promise<Board> {
+        
+        
+        return this.boardRepository.createBoard(createBoardDto);
+    }
 
-    //     const board: Board = {
-    //         id: uuid(), // 유니크한 게시판의 id를 주기 위함
-    //         title,
-    //         content,
-    //         status: BoardStatus.PUBLIC
-    //     }
-
-    //     this.boards.push(board);
-    //     return board;
-    // }
-
+    
     async getBoardById(id: number): Promise<Board> {
         const found = await this.boardRepository.findOne(id);
 
