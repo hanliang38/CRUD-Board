@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Logger, Param, ParseIntPipe, Patch, Post, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { User } from 'src/auth/user.entity';
@@ -11,12 +11,14 @@ import { BoardStatusValidationPipe } from './pipes/board-status-validation.pipe'
 @Controller('/api/boards')
 @UseGuards(AuthGuard())
 export class BoardsController {
+    private logger = new Logger('BoardsController');
     constructor(private boardsService: BoardsService) { }
         
     @Get() //게시물 리스트 조회
     getAllBoard(
         @GetUser() user:User
     ): Promise<Board[]> {
+        this.logger.verbose(`유저 ${user.username} (이)가 모든 게시물을 가져오려 합니다.`)
         return this.boardsService.getAllBoards();
     }
 
@@ -24,7 +26,8 @@ export class BoardsController {
     @UsePipes(ValidationPipe)
     createBoard(
         @Body() createBoardDto: CreateBoardDto,
-    @GetUser() user:User): Promise<Board> {
+        @GetUser() user: User): Promise<Board> {
+        this.logger.verbose(`유저 ${user.username}(이)가 새로운 게시물을 생성합니다. Payload: ${JSON.stringify(createBoardDto)}`)
         return this.boardsService.createBoard(createBoardDto, user);
     }
 
