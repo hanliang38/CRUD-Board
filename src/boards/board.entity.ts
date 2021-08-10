@@ -15,9 +15,9 @@ export class Board extends BaseEntity {
     @Column()
     status: BoardStatus
 
-    @Column()
-    like: number
+    // @Column()
+    // like: number
 
-    @Column()
-    createdAt: Date
+    // @Column()
+    // createdAt: Date
 }
