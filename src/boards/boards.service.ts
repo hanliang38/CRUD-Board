@@ -38,8 +38,8 @@ export class BoardsService {
     }
 
     // 게시물 삭제
-    async deleteBoard(id: number): Promise<void> {
-        const result = await this.boardRepository.delete(id);
+    async deleteBoard(id: number, user: User): Promise<void> {
+        const result = await this.boardRepository.delete({ id, user });
 
         //error message
         if (result.affected === 0) {

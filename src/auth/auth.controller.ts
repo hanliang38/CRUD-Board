@@ -11,13 +11,13 @@ export class AuthController {
 
 
     @Post('/join')
-    signUp(@Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto): Promise <void> {
-    return this.authService.signUp(authCredentialsDto);
+    join(@Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto): Promise <void> {
+    return this.authService.join(authCredentialsDto);
     }
     
     @Post('/login')
-    signIn(@Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto) : Promise<{ accessToken : string }> {
-        return this.authService.signIn(authCredentialsDto)
+    login(@Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto) : Promise<{ accessToken : string }> {
+        return this.authService.login(authCredentialsDto)
     }
 
     @Post('/test')

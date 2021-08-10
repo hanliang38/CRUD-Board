@@ -13,11 +13,11 @@ export class AuthService {
         private jwtService: JwtService
     ) { }
 
-    async signUp(authCredentialsDto: AuthCredentialsDto): Promise<void> {
+    async join(authCredentialsDto: AuthCredentialsDto): Promise<void> {
         return this.userRepository.createUser(authCredentialsDto);
     }
 
-    async signIn(authCredentialsDto: AuthCredentialsDto): Promise<{ accessToken : string }> {
+    async login(authCredentialsDto: AuthCredentialsDto): Promise<{ accessToken : string }> {
         const { email, username, password } = authCredentialsDto;
         const user = await this.userRepository.findOne({ email });
 
