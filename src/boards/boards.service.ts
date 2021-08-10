@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { BoardStatus } from './board-status.enum';
-import { v1 as uuid } from 'uuid';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BoardRepository } from './board.repository';
 import { Board } from './board.entity';
+import { User } from 'src/auth/user.entity';
 
 @Injectable()
 export class BoardsService {
@@ -21,10 +21,8 @@ export class BoardsService {
     }
 
     // 게시물 생성
-    createBoard(createBoardDto: CreateBoardDto): Promise<Board> {
-        
-        
-        return this.boardRepository.createBoard(createBoardDto);
+    createBoard(createBoardDto: CreateBoardDto, user:User): Promise<Board> {
+        return this.boardRepository.createBoard(createBoardDto, user);
     }
 
 

@@ -1,5 +1,7 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from 'src/auth/get-user.decorator';
+import { User } from 'src/auth/user.entity';
 import { BoardStatus } from './board-status.enum';
 import { Board } from './board.entity';
 import { BoardsService } from './boards.service';
@@ -19,9 +21,9 @@ export class BoardsController {
     @Post() // 게시물 생성
     @UsePipes(ValidationPipe)
     createBoard(
-        @Body() CreateBoardDto: CreateBoardDto 
-    ): Promise<Board> {
-        return this.boardsService.createBoard(CreateBoardDto);
+        @Body() CreateBoardDto: CreateBoardDto,
+    @GetUser() user:User): Promise<Board> {
+        return this.boardsService.createBoard(CreateBoardDto, user);
     }
 
     @Get('/:id') // 게시물 상세 조회
